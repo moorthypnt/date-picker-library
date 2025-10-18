@@ -7,7 +7,7 @@
 .datetime-boxes {
   display: flex;
   flex-direction:row;
-  gap: 5px;
+  gap: 4px;
 }
 
 .box-wrapper {

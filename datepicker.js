@@ -74,7 +74,7 @@ export function createDatePicker(containerId) {
   });
 
   document.addEventListener('click', () => {
-    Object.values(popups).forEach(p => p.style.display = 'none');
+    Object.values(popups).forEach(p => p.style.display =  'none');
   });
 
   function getISOTimestamp() {
