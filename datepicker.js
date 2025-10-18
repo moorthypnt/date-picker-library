@@ -10,6 +10,7 @@ export function createDatePicker(containerId) {
   const inputs = {};
   const popups = {};
 
+  // Create input fields and popups
   fields.forEach(field => {
     const wrapper = document.createElement('div');
     wrapper.classList.add('box-wrapper');
@@ -18,15 +19,15 @@ export function createDatePicker(containerId) {
     input.type = 'text';
     input.id = `${containerId}_${field}`;
     input.placeholder = field === 'year' ? 'YYYY' :
-                        field === 'month' ? 'MM' :
-                        field === 'day' ? 'DD' :
-                        field === 'hour' ? 'hh' :
-                        field === 'minute' ? 'mm' :
-                        field === 'second' ? 'ss':
+      field === 'month' ? 'MM' :
+        field === 'day' ? 'DD' :
+          field === 'hour' ? 'hh' :
+            field === 'minute' ? 'mm' : 'ss';
     input.readOnly = true;
-    input.classList.add('field-size'); // optional: add class for CSS targeting
 
-    if (field === 'year') input.classList.add('year');
+    // Apply your existing CSS classes
+    input.classList.add('field-size'); // default for all
+    if (field === 'year') input.classList.add('year'); // year overrides width
 
     const popup = document.createElement('div');
     popup.id = `${containerId}_${field}Popup`;
@@ -42,6 +43,7 @@ export function createDatePicker(containerId) {
 
   container.appendChild(datetimeBoxes);
 
+  // Populate popup with numbers
   function populatePopup(popup, start, end, pad = 2) {
     popup.innerHTML = '';
     for (let i = start; i <= end; i++) {
@@ -63,24 +65,37 @@ export function createDatePicker(containerId) {
   populatePopup(popups.minute, 0, 59);
   populatePopup(popups.second, 0, 59);
 
+  // Popup toggle logic
   Object.keys(inputs).forEach(key => {
     const input = inputs[key];
     const popup = popups[key];
-    input.addEventListener('click', (e) => {
+
+    input.addEventListener('click', e => {
       e.stopPropagation();
-      Object.values(popups).forEach(p => p.style.display = 'none');
-      popup.style.display = 'block';
+
+      // Close all other popups
+      Object.keys(popups).forEach(k => {
+        if (k !== key) popups[k].style.display = 'none';
+      });
+
+      // Toggle current popup
+      popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
     });
+
+    // Clicking inside popup does not close it
+    popup.addEventListener('click', e => e.stopPropagation());
   });
 
+  // Clicking outside closes all popups
   document.addEventListener('click', () => {
-    Object.values(popups).forEach(p => p.style.display =  'none');
+    Object.values(popups).forEach(p => p.style.display = 'none');
   });
 
+  // Return ISO timestamp
   function getISOTimestamp() {
-    const values = Object.keys(inputs).map(k => {
-      const pad = (k === 'year') ? 4 : 2;
-      return String(inputs[k].value || '00').padStart(pad, '0');
+    const values = fields.map(f => {
+      const pad = (f === 'year') ? 4 : 2;
+      return String(inputs[f].value || '00').padStart(pad, '0');
     });
     return `${values[0]}-${values[1]}-${values[2]}T${values[3]}:${values[4]}:${values[5]}`;
   }
