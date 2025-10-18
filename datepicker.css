@@ -1,12 +1,13 @@
-
-/* ===== Datepicker Boxes ===== */
+/* ===== Container ===== */
 .container {
-    background-color:transparent;
+  background-color: transparent;
+  display: inline-block;
+  /* ensures absolute popups are positioned correctly */
 }
 
+/* ===== DateTime Boxes ===== */
 .datetime-boxes {
   display: flex;
-  flex-direction:row;
   gap: 4px;
 }
 
@@ -17,6 +18,19 @@
   position: relative;
 }
 
+/* Input Boxes - general style, width comes from class */
+.box-wrapper input {
+  box-sizing: border-box;
+  padding: 3px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Width controlled by class */
 .field-size {
   width: 80px;
 }
@@ -25,33 +39,19 @@
   width: 160px;
 }
 
-.box-wrapper input {
-  flex: 0 0 auto;            /* prevent flex from overriding width */
-  box-sizing: border-box;     /* include padding & border in width */
-  width: 30px;                /* default width for all boxes */
-  padding: 3px;
-  font-size: 14px;
-  text-align: center;
-  border-radius: 2px;
-  border: 1px solid #ccc;
-  background-color: #fff;     /* default box background */
-  cursor: pointer;
-}
-
-
 /* ===== Popups ===== */
-
 .popup {
   position: absolute;
-  top: 45px;
+  top: 100%;
   left: 0;
   width: 100%;
+  /* fills wrapper width */
   max-height: 140px;
   overflow-y: auto;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: none;
   z-index: 10;
 }
