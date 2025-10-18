@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date-Time Picker Form</title>
+
+    <!-- ✅ Replace 'yourusername' with your actual GitHub username -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yourusername/datepicker-widget@main/datepicker.css">
+    <script src="https://cdn.jsdelivr.net/gh/yourusername/datepicker-widget@main/datepicker.js" defer></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 340px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .picker-container {
+            margin-top: 8px;
+        }
+
+        .datetime-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .box-wrapper {
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 50px;
+            text-align: center;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: absolute;
+            top: 38px;
+            left: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 6px;
+            border-radius: 6px;
+            z-index: 10;
+        }
+
+        button {
+            display: block;
+            margin-top: 18px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="mainForm">
+        <label for="myDatePicker">Date:</label>
+        <div class="picker-container" id="myDatePicker">
+            <div class="datetime-boxes">
+                <div class="box-wrapper">
+                    <input type="text" id="year" class="year" readonly placeholder="YYYY">
+                    <div id="yearPopup" class="popup"></div>
+                </div>
+                <div class="box-wrapper">
+                    <input type="text" id="month" readonly placeholder="MM">
+                    <div id="monthPopup" class="popup"></div>
+                </div>
+                <div class="box-wrapper">
+                    <input type="text" id="day" readonly placeholder="DD">
+                    <div id="dayPopup" class="popup"></div>
+                </div>
+                <div class="box-wrapper">
+                    <input type="text" id="hour" readonly placeholder="hh">
+                    <div id="hourPopup" class="popup"></div>
+                </div>
+                <div class="box-wrapper">
+                    <input type="text" id="minute" readonly placeholder="mm">
+                    <div id="minutePopup" class="popup"></div>
+                </div>
+                <div class="box-wrapper">
+                    <input type="text" id="second" readonly placeholder="ss">
+                    <div id="secondPopup" class="popup"></div>
+                </div>
+            </div>
+            <input type="hidden" name="datetime">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the datepicker
+            createDatePicker('myDatePicker');
+
+            // Handle form submission
+            document.getElementById('mainForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const datetimeValue = document.querySelector('input[name="datetime"]').value;
+                console.log('Submitted datetime:', datetimeValue);
+                alert(`Submitted datetime: ${datetimeValue || 'No date selected'}`);
+            });
+        });
+    </script>
+</body>
+
+</html>
