@@ -30,7 +30,7 @@ export function createDatePicker(containerId) {
 
     const popup = document.createElement('div');
     popup.id = `${containerId}_${field}Popup`;
-    popup.classList.add('popup');
+    popup.className = 'popup';
 
     wrapper.appendChild(input);
     wrapper.appendChild(popup);
